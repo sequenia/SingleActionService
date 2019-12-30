@@ -15,5 +15,11 @@ module SingleActionService
     def error?
       !success?
     end
+
+    def data!
+      return data if success?
+
+      raise InvalidResult.new(self)
+    end
   end
 end
