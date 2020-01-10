@@ -74,6 +74,17 @@ else
   }
 end
 ```
+or uses data! if you want to throw an exception
+```ruby
+begin
+  result = MySingleAction.new.call(1,2).data!
+rescue SingleActionService::InvalidResult => e
+  {
+    error_code: e.result.error_code,
+    data: e.result.data
+  }
+end
+```
 
 ## Contributing
 

@@ -15,11 +15,29 @@ RSpec.describe SingleActionService::Result do
     expect(result.instance_variable_defined?(:@error_code)).to eq(true)
   end
 
+  it "method data! defined?" do
+    expect(result.methods.include?(:data!)).to eq(true)
+  end
+
   it "result success?" do
     expect(result.success?).to eq(true)
   end
 
   it "result error?" do
     expect(result(false).error?).to eq(true)
+  end
+
+  it "result data! success" do
+    data = 'Data'
+    success_result = result
+    success_result.data = data
+    expect(success_result.data!).to eq(data)
+  end
+
+  it "result data! error" do
+    error_result = result(false)
+    error_result.data!
+  rescue SingleActionService::InvalidResult => e
+    expect(e.result).to eq(error_result)
   end
 end
