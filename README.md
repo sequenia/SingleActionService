@@ -54,9 +54,9 @@ success
 ```
 5. Or return an error:
 ```ruby
-return error(sum, code: 1) unless sum.positive?
+return error(data: sum, code: 1) unless sum.positive?
 ```
-The first parameter is any data (optional).
+The 'data' parameter is any data (optional).
 
 The 'code' parameter is used to identify the error (optional).
 
