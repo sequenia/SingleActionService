@@ -6,7 +6,7 @@ module SingleActionService
       Result.new(true, data: data)
     end
 
-    def error(data = nil, code: nil)
+    def error(data: nil, code: nil)
       Result.new(false, data: data, error_code: code)
     end
   end
