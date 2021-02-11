@@ -1,45 +1,91 @@
-def result(status = true)
-  SingleActionService::Result.new(status)
-end
-
+# rubocop:disable Metrics/BlockLength
 RSpec.describe SingleActionService::Result do
-  it 'instance variable status defined?' do
-    expect(result.instance_variable_defined?(:@status)).to eq(true)
+  let(:result) { described_class.new(nil) }
+
+  let(:success_data) { 'Success Data' }
+  let(:error_data) { 'Erro Data' }
+
+  let(:success_result) { described_class.new(true, data: success_data) }
+  let(:error_result) { described_class.new(false, data: error_data) }
+
+  describe '#status' do
+    it 'attr accessor defined' do
+      expect(result).to have_attr_accessor(:status)
+    end
   end
 
-  it 'instance variable data defined?' do
-    expect(result.instance_variable_defined?(:@data)).to eq(true)
+  describe '#success?' do
+    it 'method defined' do
+      expect(result.respond_to?(:success?)).to eq(true)
+    end
+
+    context 'with positive status' do
+      it 'should be true' do
+        expect(success_result.success?).to eq(true)
+      end
+    end
+
+    context 'with negative status' do
+      it 'should be false' do
+        expect(error_result.success?).to eq(false)
+      end
+    end
   end
 
-  it 'instance variable error_code defined?' do
-    expect(result.instance_variable_defined?(:@error_code)).to eq(true)
+  describe '#error?' do
+    it 'method defined' do
+      expect(result.respond_to?(:error?)).to eq(true)
+    end
   end
 
-  it 'method data! defined?' do
-    expect(result.methods.include?(:data!)).to eq(true)
+  describe '#data' do
+    it 'attr accessor defined' do
+      expect(result).to have_attr_accessor(:data)
+    end
+
+    context 'with positive status' do
+      it 'should be false' do
+        expect(success_result.error?).to eq(false)
+      end
+    end
+
+    context 'with negative status' do
+      it 'should be true' do
+        expect(error_result.error?).to eq(true)
+      end
+    end
   end
 
-  it 'result success?' do
-    expect(result.success?).to eq(true)
+  describe '#error_code' do
+    it 'attr accessor defined' do
+      expect(result).to have_attr_accessor(:error_code)
+    end
   end
 
-  it 'result error?' do
-    expect(result(false).error?).to eq(true)
-  end
+  describe '#data!' do
+    it 'method defined' do
+      expect(result.respond_to?(:data)).to eq(true)
+    end
 
-  it 'result data! success' do
-    data = 'Data'
-    success_result = result
-    success_result.data = data
-    expect(success_result.data!).to eq(data)
-  end
+    context 'with positive status' do
+      it 'should return' do
+        expect(success_result.data!).to eq(success_data)
+      end
+    end
 
-  it 'result data! error' do
-    begin
-      error_result = result(false)
-      error_result.data!
-    rescue SingleActionService::InvalidResult => e
-      expect(e.result).to eq(error_result)
+    context 'with negative status' do
+      it 'should raise exception' do
+        expect { error_result.data! }.to raise_error do |error|
+          expect(error).to be_a(SingleActionService::InvalidResult)
+        end
+      end
+
+      it 'should store result in exception' do
+        expect { error_result.data! }.to raise_error do |error|
+          expect(error.result).to eq(error_result)
+        end
+      end
     end
   end
 end
+# rubocop:enable Metrics/BlockLength

@@ -1,5 +1,6 @@
 require 'bundler/setup'
 require 'single_action_service'
+require 'custom_matchers/have_attr_accessor'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -7,6 +8,9 @@ RSpec.configure do |config|
 
   # Disable RSpec exposing methods globally on `Module` and `main`
   config.disable_monkey_patching!
+
+  # Custom matchers
+  config.include HaveAttrAccessor
 
   config.expect_with :rspec do |c|
     c.syntax = :expect
