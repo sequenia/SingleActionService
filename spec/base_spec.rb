@@ -11,11 +11,11 @@ class DiscountApplicator < SingleActionService::Base
 end
 
 RSpec.describe SingleActionService::Base do
-  it "successful action service" do
+  it 'successful action service' do
     expect(DiscountApplicator.new.call(true).success?).to eq(true)
   end
 
-  it "errorful action service" do
+  it 'errorful action service' do
     expect(DiscountApplicator.new.call(false).error?).to eq(true)
   end
 end
