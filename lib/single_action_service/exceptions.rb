@@ -7,6 +7,7 @@ module SingleActionService
     attr_reader :result
 
     def initialize(result)
+      super
       @result = result
     end
   end
