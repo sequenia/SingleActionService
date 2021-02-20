@@ -1,9 +1,8 @@
 class SingleActionService::ServiceError
-  attr_accessor :code, :name, :data_converter
+  attr_accessor :code, :name
 
-  def initialize(code: nil, name: nil, data_converter: ->(data) { data })
+  def initialize(code: nil, name: nil)
     @code = code
     @name = name
-    @data_converter = data_converter
   end
 end

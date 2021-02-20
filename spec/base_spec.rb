@@ -46,13 +46,11 @@ RSpec.describe SingleActionService::Base do
       [
         {
           name: :validation,
-          code: :'some_namespace.validation_error',
-          data_converter: ->(data) { data }
+          code: :'some_namespace.validation_error'
         },
         {
           name: :already_exists,
-          code: :'another_namespace.already_exists_error',
-          data_converter: ->(data) { data }
+          code: :'another_namespace.already_exists_error'
         }
       ]
     end
@@ -111,13 +109,6 @@ RSpec.describe SingleActionService::Base do
       service_class.errors.each_with_index do |error, index|
         error_data = errors_data[index]
         expect(error.code).to eq(error_data[:code])
-      end
-    end
-
-    it 'should fill error data converters' do
-      service_class.errors.each_with_index do |error, index|
-        error_data = errors_data[index]
-        expect(error.data_converter).to eq(error_data[:data_converter])
       end
     end
 
