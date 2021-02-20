@@ -88,13 +88,13 @@ class SingleActionService::Base
   # @return a result with a success indicator and passed data.
   # @param data is any data to return from service.
   def success(data = nil)
-    SingleActionService::Result.new(true, data: data)
+    self.class.result_class.new(true, data: data)
   end
 
   # @return a result with an error indicator, passed data and error code.
   # @param data is any data to return from the service.
   # @param code is an error code of the occurred error.
   def error(data: nil, code: nil)
-    SingleActionService::Result.new(false, data: data, error_code: code)
+    self.class.result_class.new(false, data: data, error_code: code)
   end
 end
