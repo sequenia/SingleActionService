@@ -104,7 +104,7 @@ You can define a list of errors of a service by calling a `self.errors(errors_da
 ```ruby
 class Summator < SingleActionService::Base
   errors [
-    { name: :nil_numbers, code: 1 }
+    { name: :nil_numbers, code: :nil_numbers_error }
   ]
 
   def call(x, y)
