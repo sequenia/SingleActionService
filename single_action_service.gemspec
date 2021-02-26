@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'Single Action Service'
   spec.description   = 'A Ruby library to organize the code'
-  spec.homepage      = 'http://sequenia.com/'
+  spec.homepage      = 'https://github.com/sequenia/SingleActionService'
   spec.license       = 'MIT'
 
   # Specify which files should be added to the gem when it is released.
